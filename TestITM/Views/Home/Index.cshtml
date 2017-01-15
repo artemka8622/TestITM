@@ -1,0 +1,50 @@
+﻿@model TestITM.Models.SwitchViewModel
+
+@{
+
+    ViewBag.Title = "Главная";
+}
+
+
+<div class="jumbotron">
+
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Управление комутатором</h2>
+        <div>
+            @Html.LabelFor(model => Model.Name, new {@class = "control-label"})
+            @Html.TextBoxFor(model => Model.Name, new {@class = "form-control"})
+            @Html.HiddenFor(model => Model.Id)
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Name").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '@Url.Action("GetSwitch", "Home")',
+                    datatype: "json",
+                    data: {
+                        term: request.term
+                    },
+                    success: function(data) {
+                        response($.map(data, function(val, item) {
+                            return {
+                                label: val.Name,
+                                value: val.Name,
+                                customerId: val.ID
+                            }
+                        }));
+                    }
+                });
+            },
+            select: function (event, ui) {
+                $("#Id").val(ui.item.customerId);
+            }
+        });
+    });
+</script>
