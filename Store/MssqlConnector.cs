@@ -19,7 +19,7 @@ namespace Store
 
         public override void Connect()
         {
-            Connection = new SqlConnection();
+            Connection = new SqlConnection(ConnectionString);
             Connection.Open();
         }
 

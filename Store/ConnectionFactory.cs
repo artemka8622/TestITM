@@ -12,7 +12,6 @@ namespace Store
         public static AutoConnector GetConnector()
         {
             var con =  new MssqlConnector();
-            con.ConnectionString = ConfigurationManager.ConnectionStrings["connectionStringName"].ConnectionString;
             con.Connect();
             return con;
         }

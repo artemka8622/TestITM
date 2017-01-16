@@ -9,7 +9,7 @@ namespace Store
 {
     public abstract class AutoConnector
     {
-        public string ConnectionString { get; set; } = ConfigurationManager.ConnectionStrings["connectionStringName"].ConnectionString;
+        public string ConnectionString { get; set; } = ConfigurationManager.ConnectionStrings["switchDb"].ConnectionString;
         public abstract void CreateConnection();
 
         public abstract void Connect();

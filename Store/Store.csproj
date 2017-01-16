@@ -36,6 +36,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,6 +49,7 @@
     <Compile Include="AutoConnector.cs" />
     <Compile Include="ConnectionFactory.cs" />
     <Compile Include="FakeStore.cs" />
+    <Compile Include="MssqlConnector.cs" />
     <Compile Include="FakeStoreConnector.cs" />
     <Compile Include="Model\StatusModel.cs" />
     <Compile Include="Model\SwitchModel.cs" />

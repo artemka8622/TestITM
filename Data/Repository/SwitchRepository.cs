@@ -45,7 +45,7 @@ namespace Data.Repository
         public List<SwitchModel> GetItemByName(string name)
         {
             var result = new List<SwitchModel>();
-            var reader = connector.ExecuteReader($"select * from Switch like %{name}%");
+            var reader = connector.ExecuteReader($"select * from Switch where Name like '%{name}%'");
             while (reader.Read())
             {
                 var item = new SwitchModel()

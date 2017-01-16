@@ -21,12 +21,17 @@ namespace Store
             throw new NotImplementedException();
         }
 
-        public override IDataReader ExecuteCommand(string command)
+        public override IDataReader ExecuteReader(string command)
         {
             throw new NotImplementedException();
         }
 
-        public override IDataReader Execute(string sql)
+        public override int ExecuteNonQuery(string command)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override object ExecuteScalar(string command)
         {
             throw new NotImplementedException();
         }

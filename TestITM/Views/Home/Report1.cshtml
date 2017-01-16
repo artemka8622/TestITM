@@ -1,8 +1,19 @@
-﻿@model dynamic
+﻿@model TestITM.Models.ReportViewModel
 
 @{
     ViewBag.Title = "title";
-    Layout = "_Layout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>title</h2>
+<h2>Отчет по коммутаторам №1</h2>
+
+<p>
+    <div>
+        @using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "thetable" }))
+        {
+            @Html.TextBox("Начало", $"{Model.SearchViewModel.From:g}", new { @class = "datefield", type = "datetime" })
+            @Html.TextBox("Окончание", $"{Model.SearchViewModel.To:g}", new { @class = "datefield", type = "datetime" })
+            <input type="submit" name="Выполнить" value="Выполнить" />
+        }
+    </div>
+</p>

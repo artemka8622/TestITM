@@ -9,6 +9,6 @@ namespace TestITM.Controllers
 {
     public class BaseController : Controller
     {
-        public AutoConnector connector { get; set; } = ConnectionFactory.GetConnector();
+        
     }
 }

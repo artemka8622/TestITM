@@ -29,7 +29,7 @@ namespace Data.Repository
         public List<StatusModel> GetItemsByTime(DateTime from, DateTime to, Guid switchId)
         {
             var result = new List<StatusModel>();
-            var reader = AutoConnector.Execute("select * from swith");
+            var reader = AutoConnector.ExecuteReader(string.Format("select * from swith where DateTime between {0} and {1}", from, to));
             while (reader.Read())
             {
                 var item = new StatusModel()

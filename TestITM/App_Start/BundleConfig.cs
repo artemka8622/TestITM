@@ -9,7 +9,12 @@ namespace TestITM
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-ui-1.10.4.custom.js",
+                        "~/Scripts/moment-with-locales.min.js",
+                        "~/Scripts/moment.min.js",
+                        "~/Scripts/bootstrap-datetimepicker.js"
+                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -25,7 +30,9 @@ namespace TestITM
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/bootstrap-datetimepicker.min.css",
+                      "~/Content/datepicker.css"));
         }
     }
 }
