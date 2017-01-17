@@ -10,6 +10,7 @@ namespace Store.Model
         public SwitchModel Switch { get; set; }
         public DateTime DateTime { get; set; }
         public ActionSwitch ActionSwitch { get; set; }
+        public TimeSpan WorkTime  { get; set; }
     }
 
     public enum ActionSwitch

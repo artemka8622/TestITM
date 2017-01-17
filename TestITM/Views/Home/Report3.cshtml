@@ -12,36 +12,25 @@
     <div>
         @using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "thetable" }))
         {
-            @Html.TextBox("Начало", $"{Model.SearchViewModel.From:d}",new { @class = "datefield", type = "datetime" })
-            @Html.TextBox("Окончание", $"{Model.SearchViewModel.To:d}", new { @class = "datefield", type = "datetime" })
+            <span>C</span>
+            @Html.TextBoxFor(t => t.SearchViewModel.From, new { @class = "datefield", type = "datetime" })
+            <span>По</span>
+            @Html.TextBoxFor(t => t.SearchViewModel.To, new { @class = "datefield", type = "datetime" })
             <input type="submit" name="name" value="Выполнить" />
         }
     </div>
 </p>
 
-<h5>Cписок всех коммутаторов в состоянии UP</h5>
+<h5>Cписок всех коммутаторов </h5>
 <div>
 @{
     foreach (var d in Model.StausViewModels)
     {
         <div class="grid-5-12 left clear">
-            @Html.LabelFor(t => d.SwitchName)
-            @Html.LabelFor(t => d.DateTime.ToString())
-            @Html.LabelFor(t => d.ActionSwitch.GetDescription())
+            @Html.DisplayFor(t => d.SwitchName)
+            @Html.DisplayFor(t => d.DateTime)
+            @Html.DisplayFor(t => d.ActionSwitchStr)
         </div>
     }
 }
-</div>
-<h5>Cписок всех коммутаторов в состоянии DOWN</h5>
-<div>
-    @{
-        foreach (var d in Model.StausViewModels)
-        {
-            <div class="grid-5-12 left clear">
-                @Html.LabelFor(t => d.SwitchName)
-                @Html.LabelFor(t => d.DateTime.ToString())
-                @Html.LabelFor(t => d.ActionSwitch.GetDescription())
-            </div>
-        }
-    }
 </div>

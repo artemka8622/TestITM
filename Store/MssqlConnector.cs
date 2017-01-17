@@ -21,12 +21,32 @@ namespace Store
         {
             Connection = new SqlConnection(ConnectionString);
             Connection.Open();
+            var sql =
+                "SET CONCAT_NULL_YIELDS_NULL, ARITHABORT, QUOTED_IDENTIFIER, ANSI_NULL_DFLT_ON, ANSI_PADDING, ANSI_WARNINGS, ANSI_NULLS ON;" +
+                "SET NOCOUNT, NOEXEC, PARSEONLY, FMTONLY, IMPLICIT_TRANSACTIONS, CURSOR_CLOSE_ON_COMMIT, NO_BROWSETABLE OFF;" +
+                "SET ROWCOUNT 0;" +
+                "SET TEXTSIZE 2147483647; ";
+            var command = new SqlCommand(sql, Connection as SqlConnection);
+            
         }
 
         public override object ExecuteScalar(string sql)
         {
             var command = new SqlCommand(sql, Connection as SqlConnection);
             return command.ExecuteScalar();
+        }
+
+        public override IDataReader ExecuteReader(string sql, Dictionary<string, object> parameters)
+        {
+
+            var command = new SqlCommand(sql, Connection as SqlConnection);
+            foreach (var o in parameters)
+            {
+                var param  = new SqlParameter(o.Key,o.Value);
+                command.Parameters.Add(param);
+            }
+            var reader = command.ExecuteReader();
+            return reader;
         }
 
         public override int ExecuteNonQuery(string sql)

@@ -36,6 +36,11 @@ namespace Store
             throw new NotImplementedException();
         }
 
+        public override IDataReader ExecuteReader(string command, Dictionary<string, object> parameters)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<object> Execute()
         {
             return FakeStore.Status.AsEnumerable();

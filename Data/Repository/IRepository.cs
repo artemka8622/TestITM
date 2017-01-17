@@ -9,7 +9,7 @@ namespace Data
     public interface IRepository<T>
     {
         List<T> GetAllItems();
-        List<T> GetItemById(Guid id);
+        T GetItemById(Guid id);
         void Update(T model);
         void Delete(Guid Id);
     }

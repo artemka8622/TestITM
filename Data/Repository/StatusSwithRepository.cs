@@ -21,7 +21,7 @@ namespace Data.Repository
             throw new NotImplementedException();
         }
 
-        public List<StatusModel> GetItemById(Guid id)
+        public StatusModel GetItemById(Guid id)
         {
             throw new NotImplementedException();
         }

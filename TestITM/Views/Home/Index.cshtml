@@ -5,18 +5,14 @@
     ViewBag.Title = "Главная";
 }
 
-
-<div class="jumbotron">
-
-</div>
-
 <div class="row">
     <div class="col-md-4">
         <h2>Управление комутатором</h2>
         <div>
-            @Html.LabelFor(model => Model.Name, new {@class = "control-label"})
-            @Html.TextBoxFor(model => Model.Name, new {@class = "form-control"})
-            @Html.HiddenFor(model => Model.Id)
+            @Html.LabelFor(model => model.Name, new {@class = "control-label"})
+            @Html.TextBoxFor(model => model.Name, new {@class = "form-control"})
+            @Html.HiddenFor(model => model.Id)
+            <input id="btnSave" type="submit" name="Save" value="Включить/Выключить" />
         </div>
     </div>
 </div>
@@ -36,15 +32,30 @@
                             return {
                                 label: val.Name,
                                 value: val.Name,
-                                customerId: val.ID
+                                Id: val.Id
                             }
                         }));
                     }
                 });
             },
             select: function (event, ui) {
-                $("#Id").val(ui.item.customerId);
+                $("#Id").val(ui.item.Id);
             }
         });
     });
+
+
+    $('#btnSave').click(function () {
+        $.ajax({
+            url: "@(Url.Action("Switch", "Home"))",
+            type: "POST",
+            data: { id: $("#Id").val() },
+            cache: false,
+            async: true,
+            success: function (data) {
+                alert(data.result);
+            }
+        });
+    });
+
 </script>

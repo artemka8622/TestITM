@@ -13,7 +13,8 @@ namespace TestITM
                         "~/Scripts/jquery-ui-1.10.4.custom.js",
                         "~/Scripts/moment-with-locales.min.js",
                         "~/Scripts/moment.min.js",
-                        "~/Scripts/bootstrap-datetimepicker.js"
+                        "~/Scripts/bootstrap-datetimepicker.min.js",
+                        "~/Scripts/jquery.datetimepicker.full.min.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -31,8 +32,9 @@ namespace TestITM
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/bootstrap-datetimepicker.min.css",
-                      "~/Content/datepicker.css"));
+                      "~/Content/jquery.datetimepicker.min.css",
+                      "~/Content/datepicker.css",
+                      "~/Content/jquery-ui-1.10.4.custom.min.css"));
         }
     }
 }

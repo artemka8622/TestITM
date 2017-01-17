@@ -10,9 +10,39 @@
     <div>
         @using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "thetable" }))
         {
-            @Html.TextBox("Начало", $"{Model.SearchViewModel.From:d}", new { @class = "datefield", type = "datetime" })
-            @Html.TextBox("Окончание", $"{Model.SearchViewModel.To:d}", new { @class = "datefield", type = "datetime" })
-            <input type="submit" name="Выполнить" value="Выполнить" />
+            <span>C</span>
+            @Html.TextBoxFor(t => t.SearchViewModel.From, new { @class = "datefield", type = "datetime" })
+            <span>По</span>
+            @Html.TextBoxFor(t => t.SearchViewModel.To, new { @class = "datefield", type = "datetime" })
+            <input type="submit" name="name" value="Выполнить" />
         }
     </div>
 </p>
+<h5>Cписок всех коммутаторов </h5>
+<div>
+    @{
+        <div class="grid-5-12 left clear">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Наименование коммутатора</th>
+                        <th>Общее время простоя</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var d in Model.StausViewModels)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(t => d.SwitchName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(t => d.WorkTime)
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+</div>
