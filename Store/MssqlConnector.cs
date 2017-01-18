@@ -32,7 +32,7 @@ namespace Store
                 "SET LOCK_TIMEOUT -1;" +
                 "SET QUERY_GOVERNOR_COST_LIMIT 0; ";
             var command = new SqlCommand(sql, Connection as SqlConnection);
-            command.ExecuteNonQuery();
+            //command.ExecuteNonQuery();
         }
 
         public override object ExecuteScalar(string sql)
