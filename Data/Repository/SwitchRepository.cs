@@ -139,7 +139,7 @@ namespace Data.Repository
                     Switch = new SwitchModel() { Id = reader.GetGuid(1), Name = reader.GetString(2) },
                     SwitchId = reader.GetGuid(1),
                     //ActionSwitch = (ActionSwitch)reader.GetInt32(1),
-                    WorkTime = TimeSpan.FromSeconds(reader.GetInt32(0))
+                    WorkTime = reader.GetValue(0) is DBNull ? TimeSpan.Zero : TimeSpan.FromSeconds(reader.GetInt32(0))
                 };
                 result.Add(item);
             }
