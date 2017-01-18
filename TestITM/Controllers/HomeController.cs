@@ -61,7 +61,7 @@ namespace TestITM.Controllers
         public ActionResult Report3(ReportViewModel vm)
         {
             vm.StausViewModels = repo.GetReport3(vm.SearchViewModel.From,vm.SearchViewModel.To).Select(t => new StausViewModel()
-            { SwitchName = t.Switch.Name, DateTime = t.DateTime, ActionSwitch = t.ActionSwitch}).ToList();
+            { SwitchName = t.Switch.Name, WorkTime = t.WorkTime, ActionSwitch = t.ActionSwitch}).ToList();
             return View(vm);
         }
 

@@ -25,9 +25,14 @@ namespace Store
                 "SET CONCAT_NULL_YIELDS_NULL, ARITHABORT, QUOTED_IDENTIFIER, ANSI_NULL_DFLT_ON, ANSI_PADDING, ANSI_WARNINGS, ANSI_NULLS ON;" +
                 "SET NOCOUNT, NOEXEC, PARSEONLY, FMTONLY, IMPLICIT_TRANSACTIONS, CURSOR_CLOSE_ON_COMMIT, NO_BROWSETABLE OFF;" +
                 "SET ROWCOUNT 0;" +
-                "SET TEXTSIZE 2147483647; ";
+                "SET TEXTSIZE 2147483647; " + "SET STATISTICS TIME OFF;" +
+                "SET STATISTICS IO OFF;" +
+                "SET TRANSACTION ISOLATION LEVEL READ COMMITTED;" +
+                "SET DEADLOCK_PRIORITY NORMAL;" +
+                "SET LOCK_TIMEOUT -1;" +
+                "SET QUERY_GOVERNOR_COST_LIMIT 0; ";
             var command = new SqlCommand(sql, Connection as SqlConnection);
-            
+            command.ExecuteNonQuery();
         }
 
         public override object ExecuteScalar(string sql)

@@ -21,16 +21,35 @@
     </div>
 </p>
 
-<h5>Cписок всех коммутаторов </h5>
+<h5>Cписок всех коммутаторов в состоянии flickering</h5>
 <div>
 @{
-    foreach (var d in Model.StausViewModels)
-    {
-        <div class="grid-5-12 left clear">
-            @Html.DisplayFor(t => d.SwitchName)
-            @Html.DisplayFor(t => d.DateTime)
-            @Html.DisplayFor(t => d.ActionSwitchStr)
-        </div>
-    }
+    <div class="grid-5-12 left clear">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Наименование коммутатора</th>
+                    <th>Минимальное время 10 переключений</th>
+                    <th>flickering</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var d in Model.StausViewModels.OrderBy(t => t.SwitchName))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(t => d.SwitchName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(t => d.WorkTime)
+                        </td>
+                        <td>
+                            @Html.CheckBoxFor(t => d.IsFlickering, new { @disabled = "true"} )
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
 </div>

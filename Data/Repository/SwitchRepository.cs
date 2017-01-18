@@ -17,7 +17,7 @@ namespace Data.Repository
         /// <summary>
         /// Частая смена статус количество смен статуса
         /// </summary>
-        private int ConstCountSwitchStatusFlickering { get; set; } = 10;
+        private int ConstCountSwitchStatusFlickering { get; set; } = 20;
         public AutoConnector connector { get; set; } = ConnectionFactory.GetConnector();
         public List<SwitchModel> GetAllItems()
         {
@@ -153,29 +153,28 @@ namespace Data.Repository
         {
 
             var result = new List<StatusModel>();
-            var sql = "SELECT k.Id, k.SwitchId,k.DateTime,ss.Name, DATEDIFF(SECOND, k.DateTime,  NEXT_10_TIME) FROM (SELECT  s.*," +
-                      "(SELECT TOP 1 tt.NEXT_TIME  FROM " +
-                      "(SELECT DateTime AS NEXT_TIME, " +
-                      "ROW_NUMBER() OVER(ORDER BY DateTime) AS ROWNUM " +
-                      "FROM Status s1 " +
-                      "WHERE SwitchId = s.SwitchId " +
-                      "AND DateTime > s.DateTime " +
-                      $")  AS tt WHERE tt.ROWNUM = {ConstCountSwitchStatusFlickering}) AS NEXT_10_TIME " +
-                      "FROM Status s  WHERE s.DateTime BETWEEN @from AND @to ) as k , Switch ss " +
-                      $"WHERE DATEDIFF(SECOND, k.DateTime, NEXT_10_TIME) <= {ConstTimeOutFlickering}  AND ss.Id = k.SwitchId " +
-                      "ORDER BY k.DateTime";
+            var sql = "";
+            sql = "WITH T AS " +
+                  "(SELECT  s.DateTime,row_number() OVER(ORDER BY DateTime) AS RN,s.SwitchId FROM Status s )" +
+                  "SELECT T.SwitchId,ss.Name, MIN(DATEDIFF(SECOND, T.DateTime, k.DateTime)) " +
+                  "FROM T " +
+                  $"LEFT JOIN T k on T.RN +  {ConstCountSwitchStatusFlickering} = k.RN AND T.SwitchId = k.SwitchId " +
+                  "LEFT JOIN Switch ss ON ss.Id = T.SwitchId " +
+                  "WHERE T.DateTime BETWEEN @from AND @to " +
+                  "GROUP BY T.SwitchId,ss.Name " +
+                  $"--HAVING MIN(DATEDIFF(SECOND, T.DateTime, k.DateTime)) < {ConstTimeOutFlickering}" ;
             var reader = connector.ExecuteReader(sql, new Dictionary<string, object>() { { "@from", @from }, { "@to", to } });
             while (reader.Read())
             {
                 var item = new StatusModel()
                 {
                     Id = reader.GetGuid(0),
-                    Switch = new SwitchModel() { Id = reader.GetGuid(1), Name = reader.GetString(3) },
-                    ActionSwitch = (ActionSwitch)reader.GetInt32(1),
-                    DateTime = reader.GetDateTime(2),
+                    Switch = new SwitchModel() { Id = reader.GetGuid(0), Name = reader.GetString(1) },
+                    WorkTime = reader.GetValue(2) is DBNull ? TimeSpan.Zero  : TimeSpan.FromSeconds(reader.GetInt32(2))
                 };
                 result.Add(item);
             }
+            
             return result;
         }
 
