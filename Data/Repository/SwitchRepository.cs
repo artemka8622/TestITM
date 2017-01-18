@@ -8,6 +8,11 @@ using Store.Model;
 
 namespace Data.Repository
 {
+    /// <summary>
+    /// Класс репозитория для комутатора
+    /// todo вытащить функциональность отчетов из этого класса
+    /// todo смена статуса тоже здесь не место, но нет времени
+    /// </summary>
     public class SwitchRepository : IRepository<SwitchModel>
     {
         /// <summary>

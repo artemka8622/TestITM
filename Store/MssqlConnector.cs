@@ -69,7 +69,7 @@ namespace Store
 
         public IEnumerable<object> Execute()
         {
-            return FakeStore.Status.AsEnumerable();
+            throw new NotImplementedException();
         }
     }
 }
