@@ -45,6 +45,9 @@ namespace Store
         {
 
             var command = new SqlCommand(sql, Connection as SqlConnection);
+            // какая то странность с провайдером mssql нет времени разбираться
+            // запрос выполняется выстро хотя студия тупи и выполняет его долго
+            command.CommandTimeout = 60;
             foreach (var o in parameters)
             {
                 var param  = new SqlParameter(o.Key,o.Value);
